@@ -13,21 +13,21 @@ fix_sound() {
   sudo alsa force-unload
   
   # make backup of original sound.state file
-  sudo cp -n /var/lib/alsa/asound.state /var/lib/alsa/asound.state.bck
+  sudo cp -n /var/lib/alsa/asound.state /var/lib/alsa/asound.state.backup
   
   # copy new sound.state file
-  sudo cp asound.state /var/lib/alsa
+  sudo ./cp asound.state /var/lib/alsa/
 }
 
 fix_keyboard_keys() {
 	# make backup of original pc config file
-	sudo cp -n /usr/share/X11/xkb/symbols/pc /usr/share/X11/xkb/symbols/pc.bck
+	sudo cp -n /usr/share/X11/xkb/symbols/pc /usr/share/X11/xkb/symbols/pc.backup
 
 	# copy new pc config file
-	sudo cp pc /usr/share/X11/xkb/symbols/
+	sudo cp ./pc /usr/share/X11/xkb/symbols/
 
 	# update config
-	sudo rm -rf /var/lib/xkb/*
+	sudo mv /var/lib/xkb /var/lib/xkb.backup
 }
 ## ..functions ##
 
@@ -46,5 +46,7 @@ echo "Remapped top row media keys"
 
 ## reboot
 echo "*******************************************************"
-read -p "Your Chromebook will now reboot! Press any key to continue..."
+read -p "Your Chromebook will now reboot! Press ENTER to continue..."
 sudo shutdown -r now
+
+##end
